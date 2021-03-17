@@ -1,10 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import firebase from './../config/firebase'
+import { AuthContext } from '../AuthService'
+import FacebookProvider from '../config/Facebook'
+import { Redirect } from 'react-router-dom' //リダイレクトを使用する
+
 
 const SignUp = ({ history }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
+
+    const user = useContext(AuthContext)
+
+    if (user) {
+        return <Redirect to='/' />　//userが入っているとRedirectする
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -67,8 +78,10 @@ const SignUp = ({ history }) => {
                 </div>
                 <button type='submit'>Sign Up</button>
             </form>
+            <button onClick={FacebookProvider}>Facebookアカウントでログイン</button>
         </div>
     )
+
 }
 
 export default SignUp

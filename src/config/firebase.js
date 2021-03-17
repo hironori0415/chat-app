@@ -1,8 +1,7 @@
 import firebase from 'firebase'
 // import * as firebase from 'firebase/app'
-
-
 import 'firebase/auth'
+
 
 const firebaseConfig = {
     // 各人の認証情報を記述
@@ -15,5 +14,9 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig)
+
+// export const providerGoogle = new firebase.auth.GoogleAuthProvider();
+// export const providerFacebook = new firebase.auth.FacebookAuthProvider();
+// export const providerTwitter = new firebase.auth.TwitterAuthProvider();
 
 export default firebase
