@@ -17,8 +17,13 @@ const Room = () => {
     useEffect(() => {
         firebase.firestore().collection('messages').orderBy("time")
             .onSnapshot((snapshot) => {
-                const messages = snapshot.docs.map(doc => {
-                    return doc.data()
+                const messages = snapshot.docs.map((doc) => {
+                    // return doc.data()
+                    return {
+                        id: doc.id,
+                        ...doc.data()
+                    }
+                    // return { messages: doc.data().messages, user: doc.deta().user, id: doc.id }
                 })
                 setMessages(messages)
             })
@@ -53,7 +58,7 @@ const Room = () => {
                     messages.map((message => {
                         return (
                             // <Li>{message.user} : {message.content}</Li>
-                            <Messages message={message} />
+                            <Messages message={message} key={message.id} />
                             // <Messages user={message.user} message={message.message} />
                         )
                     })) :
